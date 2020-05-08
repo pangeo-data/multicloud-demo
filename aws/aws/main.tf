@@ -37,9 +37,9 @@ module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "~> 2.6"
 
-  name                 = var.vpc_name
-  cidr                 = "172.16.0.0/16"
-  azs                  = data.aws_availability_zones.available.names
+  name = var.vpc_name
+  cidr = "172.16.0.0/16"
+  azs  = data.aws_availability_zones.available.names
 
   public_subnets       = ["172.16.1.0/24", "172.16.2.0/24", "172.16.3.0/24"]
   private_subnets      = ["172.16.4.0/24", "172.16.5.0/24", "172.16.6.0/24"]
@@ -50,8 +50,8 @@ module "vpc" {
 
   tags = {
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
-    Owner = split("/", data.aws_caller_identity.current.arn)[1]
-    AutoTag_Creator = data.aws_caller_identity.current.arn
+    Owner                                       = split("/", data.aws_caller_identity.current.arn)[1]
+    AutoTag_Creator                             = data.aws_caller_identity.current.arn
   }
 
   public_subnet_tags = {
@@ -70,14 +70,14 @@ module "eks" {
   cluster_name    = var.cluster_name
   cluster_version = "1.14"
 
-  subnets         = module.vpc.private_subnets
-  vpc_id          = module.vpc.vpc_id
-  enable_irsa     = true
+  subnets     = module.vpc.private_subnets
+  vpc_id      = module.vpc.vpc_id
+  enable_irsa = true
 
   cluster_endpoint_private_access = true
 
   tags = {
-    Owner = split("/", data.aws_caller_identity.current.arn)[1]
+    Owner           = split("/", data.aws_caller_identity.current.arn)[1]
     AutoTag_Creator = data.aws_caller_identity.current.arn
   }
 
@@ -88,16 +88,16 @@ module "eks" {
 
   worker_groups = [
     {
-      name                    = "core"
-      asg_max_size            = 1
-      asg_min_size            = 1
-      asg_desired_capacity    = 1
-      instance_type           = "t3a.medium"
-      subnets                 = [module.vpc.private_subnets[0]]
+      name                 = "core"
+      asg_max_size         = 1
+      asg_min_size         = 1
+      asg_desired_capacity = 1
+      instance_type        = "t3a.medium"
+      subnets              = [module.vpc.private_subnets[0]]
 
       # Use this to set labels / taints
-      kubelet_extra_args      = "--node-labels=node-role.kubernetes.io/core=core,hub.jupyter.org/node-purpose=core"
-      
+      kubelet_extra_args = "--node-labels=node-role.kubernetes.io/core=core,hub.jupyter.org/node-purpose=core"
+
       tags = [
         {
           "key"                 = "k8s.io/cluster-autoscaler/enabled"
@@ -127,12 +127,12 @@ module "eks" {
 
       tags = [
         {
-          "key"                 = "k8s.io/cluster-autoscaler/node-template/label/hub.jupyter.org/node-purpose" 
+          "key"                 = "k8s.io/cluster-autoscaler/node-template/label/hub.jupyter.org/node-purpose"
           "propagate_at_launch" = "false"
           "value"               = "user"
         },
         {
-          "key"                 = "k8s.io/cluster-autoscaler/node-template/taint/hub.jupyter.org/dedicated" 
+          "key"                 = "k8s.io/cluster-autoscaler/node-template/taint/hub.jupyter.org/dedicated"
           "propagate_at_launch" = "false"
           "value"               = "user:NoSchedule"
         },
@@ -161,12 +161,12 @@ module "eks" {
 
       tags = [
         {
-          "key"                 = "k8s.io/cluster-autoscaler/node-template/label/k8s.dask.org/node-purpose" 
+          "key"                 = "k8s.io/cluster-autoscaler/node-template/label/k8s.dask.org/node-purpose"
           "propagate_at_launch" = "false"
           "value"               = "worker"
         },
         {
-          "key"                 = "k8s.io/cluster-autoscaler/node-template/taint/k8s.dask.org/dedicated" 
+          "key"                 = "k8s.io/cluster-autoscaler/node-template/taint/k8s.dask.org/dedicated"
           "propagate_at_launch" = "false"
           "value"               = "worker:NoSchedule"
         },

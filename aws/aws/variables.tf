@@ -17,7 +17,7 @@ variable "vpc_name" {
 variable "map_accounts" {
   description = "Additional AWS account numbers to add to the aws-auth configmap."
   type        = list(string)
-  default = [ ]
+  default     = []
 }
 
 variable "map_roles" {

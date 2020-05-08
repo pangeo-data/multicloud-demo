@@ -13,7 +13,7 @@ module "iam_assumable_role_admin" {
   oidc_fully_qualified_subjects = ["system:serviceaccount:kube-system:cluster-autoscaler-aws-cluster-autoscaler"]
 
   tags = {
-    Owner = split("/", data.aws_caller_identity.current.arn)[1]
+    Owner           = split("/", data.aws_caller_identity.current.arn)[1]
     AutoTag_Creator = data.aws_caller_identity.current.arn
   }
 }
@@ -26,10 +26,10 @@ resource "aws_iam_policy" "cluster_autoscaler" {
 
 data "aws_iam_policy_document" "cluster_autoscaler" {
   statement {
-    sid       = "clusterAutoscalerAll"
-    effect    = "Allow"
+    sid    = "clusterAutoscalerAll"
+    effect = "Allow"
 
-    actions   = [
+    actions = [
       "autoscaling:DescribeAutoScalingGroups",
       "autoscaling:DescribeAutoScalingInstances",
       "autoscaling:DescribeLaunchConfigurations",
@@ -41,16 +41,16 @@ data "aws_iam_policy_document" "cluster_autoscaler" {
   }
 
   statement {
-    sid        = "clusterAutoscalerOwn"
-    effect     = "Allow"
+    sid    = "clusterAutoscalerOwn"
+    effect = "Allow"
 
-    actions    = [
+    actions = [
       "autoscaling:SetDesiredCapacity",
       "autoscaling:TerminateInstanceInAutoScalingGroup",
       "autoscaling:UpdateAutoScalingGroup",
     ]
 
-    resources  = ["*"]
+    resources = ["*"]
 
     condition {
       test     = "StringEquals"
@@ -66,34 +66,34 @@ data "aws_iam_policy_document" "cluster_autoscaler" {
   }
 }
 resource "helm_release" "cluster-autoscaler" {
-  name        = "cluster-autoscaler"
+  name = "cluster-autoscaler"
   # Check that this is good, kube-system should already exist
-  namespace   = "kube-system"
-  repository  = data.helm_repository.stable.metadata[0].name
-  chart       = "cluster-autoscaler"
+  namespace  = "kube-system"
+  repository = data.helm_repository.stable.metadata[0].name
+  chart      = "cluster-autoscaler"
 
   # Terraform keeps this in state, so we get it automatically!
-  set{
+  set {
     name  = "cloudProvder"
     value = "aws"
   }
 
-  set{
+  set {
     name  = "awsRegion"
     value = var.region
   }
 
-  set{
+  set {
     name  = "autoDiscovery.clusterName"
     value = module.eks.cluster_id
   }
 
-  set{
+  set {
     name  = "rbac.create"
     value = true
   }
 
-  set{
+  set {
     name  = "rbac.serviceAccountAnnotations.eks\\.amazonaws\\.com/role-arn"
     value = module.iam_assumable_role_admin.this_iam_role_arn
   }
