@@ -37,9 +37,21 @@ gcloud projects add-iam-policy-binding pangeo-181919 \
 gcloud projects add-iam-policy-binding pangeo-181919 \
   --member serviceAccount:earthcube-sa@pangeo-181919.iam.gserviceaccount.com \
   --role roles/resourcemanager.projectIamAdmin
+
+gcloud projects add-iam-policy-binding pangeo-181919 \
+  --member serviceAccount:earthcube-sa@pangeo-181919.iam.gserviceaccount.com \
+  --role roles/container.clusterRoles
 ```
 
 
 gcloud iam service-accounts keys create ~/.config/gcloud/earthcube-sa.json --iam-account=earthcube-sa@pangeo-181919.iam.gserviceaccount.com
 gcloud auth activate-service-account earthcube-sa@pangeo-181919.iam.gserviceaccount.com --key-file=$HOME/.config/gcloud/earthcube-sa.json
 export GOOGLE_CLOUD_KEYFILE_JSON=~/.config/gcloud/earthcube-sa.json
+
+
+```
+$ gcloud container clusters get-credentials earthcube --zone=us-central1
+$ kubectl create namespace dask-gateway
+```
+
+I think newer helms have a `--create-namespaces` option.

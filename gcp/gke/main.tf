@@ -71,6 +71,13 @@ module "gke" {
       # service_account   = var.compute_engine_service_account
       preemptible        = true
     },
+    {
+      name = "gateway"
+      machine_type      = "n1-standard-2"
+      auto_upgrade    = true
+      initial_node_count = 1
+      preemptible        = false
+    }
   ]
 
 #   node_pools_metadata = {
@@ -107,5 +114,32 @@ module "gke" {
         effect = "NO_SCHEDULE"
       },
     ]
+  }
+}
+
+
+resource "kubernetes_cluster_role_binding" "example" {
+  metadata {
+    name = "terraform-example"
+  }
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = "cluster-admin"
+  }
+  subject {
+    kind      = "User"
+    name      = "admin"
+    api_group = "rbac.authorization.k8s.io"
+  }
+  subject {
+    kind      = "ServiceAccount"
+    name      = "default"
+    namespace = "kube-system"
+  }
+  subject {
+    kind      = "Group"
+    name      = "system:masters"
+    api_group = "rbac.authorization.k8s.io"
   }
 }

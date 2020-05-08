@@ -12,6 +12,6 @@ dask:
 	helm upgrade --install \
 		--namespace $(NAMESPACE) \
 		--version $(VERSION) \
-		--values path/to/your/config.yaml \
-		$(RELEASE) \
-		daskgateway/dask-gateway
+		--values secrets/config.yaml \
+		$(GCP_RELEASE) \
+		dask-gateway/dask-gateway
