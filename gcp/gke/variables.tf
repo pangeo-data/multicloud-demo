@@ -1,5 +1,8 @@
 variable "region" {
-  default = "us-central-1"
+  default = "us-central1"
+}
+
+variable "project_id" {
 }
 
 variable "cluster_name" {
@@ -14,6 +17,9 @@ variable "network" {
     default = "vpc-01"
 }
 
+variable "subnetwork"{
+    default = "us-central1-01"
+}
 
 variable "ip_range_pods" {
     default              = "us-central1-01-gke-01-pods"
