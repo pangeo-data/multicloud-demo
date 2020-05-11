@@ -37,18 +37,31 @@ provider "google-beta" {
 # }
 
 module "vpc" {
-    source  = "terraform-google-modules/network/google"
-    version = "~> 2.3"
+  source  = "terraform-google-modules/network/google"
+  version = "~> 2.3"
 
-    project_id   = var.project_id
-    network_name = var.network
-    subnets = [
+  project_id   = var.project_id
+  network_name = var.network
+  subnets = [
+    {
+      subnet_name : var.subnet.name,
+      subnet_ip : var.subnet.ip,
+      subnet_region : var.region
+    }
+  ]
+
+  secondary_ranges = {
+    "${var.subnet.name}" = [
       {
-        subnet_name: var.subnet.name,
-        subnet_ip: var.subnet.ip,
-        subnet_region: var.region
-      }
+        range_name    = var.ip_range_pods
+        ip_cidr_range = "192.168.0.0/18"
+      },
+      {
+        range_name    = var.ip_range_services
+        ip_cidr_range = "192.168.64.0/18"
+      },
     ]
+  }
 }
 
 module "gke" {
@@ -64,41 +77,41 @@ module "gke" {
   create_service_account            = false
   remove_default_node_pool          = true
   disable_legacy_metadata_endpoints = false
-#   cluster_autoscaling               = var.cluster_autoscaling
+  #   cluster_autoscaling               = var.cluster_autoscaling
 
   node_pools = [
     {
-      name            = "scheduler-pool"
-      machine_type      = "n1-standard-2"
-      min_count       = 0
-      max_count       = 2
+      name         = "scheduler-pool"
+      machine_type = "n1-standard-2"
+      min_count    = 0
+      max_count    = 2
       # service_account = var.compute_engine_service_account
-      auto_upgrade    = true
+      auto_upgrade       = true
       initial_node_count = 1
       preemptible        = false
     },
     {
-      name              = "worker-pool"
-      machine_type      = "n1-standard-2"
-      min_count         = 0
-      max_count         = 40
+      name         = "worker-pool"
+      machine_type = "n1-standard-2"
+      min_count    = 0
+      max_count    = 40
       # service_account   = var.compute_engine_service_account
-      preemptible        = true
+      preemptible = true
     },
     {
-      name = "gateway"
-      machine_type      = "n1-standard-2"
-      auto_upgrade    = true
+      name               = "gateway"
+      machine_type       = "n1-standard-2"
+      auto_upgrade       = true
       initial_node_count = 1
       preemptible        = false
     }
   ]
 
-#   node_pools_metadata = {
-#     pool-01 = {
-#       shutdown-script = file("${path.module}/data/shutdown-script.sh")
-#     }
-#   }
+  #   node_pools_metadata = {
+  #     pool-01 = {
+  #       shutdown-script = file("${path.module}/data/shutdown-script.sh")
+  #     }
+  #   }
 
   node_pools_labels = {
     all = {

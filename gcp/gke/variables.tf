@@ -10,29 +10,29 @@ variable "cluster_name" {
 }
 
 variable "zones" {
-    default = ["us-central1-a", "us-central1-b", "us-central1-f"]
+  default = ["us-central1-a", "us-central1-b", "us-central1-f"]
 }
 
 variable "network" {
-    default = "vpc-01"
+  default = "vpc-01"
 }
 
-variable "subnetwork"{
-    default = "us-central1-01"
+variable "subnetwork" {
+  default = "us-central1-01"
 }
 
 variable "ip_range_pods" {
-    default              = "us-central1-01-gke-01-pods"
+  default = "us-central1-01-gke-01-pods"
 }
-variable "ip_range_services"{
-    default = "us-central1-01-gke-01-services"
+variable "ip_range_services" {
+  default = "us-central1-01-gke-01-services"
 }
 
 variable "subnet" {
-    default = {
-        name = "us-central-01"
-        ip = "10.0.0.0/17"
-    }
+  default = {
+    name = "us-central-01"
+    ip   = "10.0.0.0/17"
+  }
 }
 
 # variable "profile" {
