@@ -36,6 +36,20 @@ provider "google-beta" {
 #   }
 # }
 
+module "vpc" {
+    source  = "terraform-google-modules/network/google"
+    version = "~> 2.3"
+
+    project_id   = var.project_id
+    network_name = var.network
+    subnets = [
+      {
+        subnet_name: var.subnet.name,
+        subnet_ip: var.subnet.ip,
+        subnet_region: var.region
+      }
+    ]
+}
 
 module "gke" {
   source                            = "terraform-google-modules/kubernetes-engine/google//modules/beta-public-cluster"

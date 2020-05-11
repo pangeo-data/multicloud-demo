@@ -28,6 +28,13 @@ variable "ip_range_services"{
     default = "us-central1-01-gke-01-services"
 }
 
+variable "subnet" {
+    default = {
+        name = "us-central-01"
+        ip = "10.0.0.0/17"
+    }
+}
+
 # variable "profile" {
 #   default = "earthcube-bot"
 # }
