@@ -29,3 +29,8 @@ override.tf.json
 # example: *tfplan*
 
 *config
+.bash_history
+.ipython/
+.jupyter/
+.local/
+.cache/

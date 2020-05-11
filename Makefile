@@ -46,3 +46,8 @@ dask-aws:
 print-ips:
 	kubectl --namespace=dask-gateway get service traefik-aws-dask-gateway --kubeconfig=aws-config
 	kubectl --namespace=dask-gateway get service traefik-gcp-dask-gateway --cluster=gke_pangeo-181919_us-central1_earthcube
+
+
+lab:
+	docker run -it --rm --mount type=bind,src=(pwd),target=/home/jovyan/ -p 8888:8888 tomaugspurger/pangeo-multicloud:latest -- jupyter lab --ip=0.0.0.0
+
