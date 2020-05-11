@@ -49,5 +49,4 @@ print-ips:
 
 
 lab:
-	docker run -it --rm --mount type=bind,src=(pwd),target=/home/jovyan/ -p 8888:8888 tomaugspurger/pangeo-multicloud:latest -- jupyter lab --ip=0.0.0.0
-
+	docker run -it --rm --mount type=bind,src=$(PWD),target=/home/jovyan/ -p 8888:8888 tomaugspurger/pangeo-multicloud:latest -- jupyter lab --ip=0.0.0.0
