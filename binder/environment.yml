@@ -7,4 +7,6 @@ dependencies:
   - xhistogram
   - gcsfs
   - s3fs
+  - intake
+  - intake-xarray
   - pip
