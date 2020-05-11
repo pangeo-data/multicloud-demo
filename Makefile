@@ -15,26 +15,31 @@ config-aws:
 config-gcp:
 	gcloud container clusters get-credentials earthcube --zone=us-central1
 
+dask-gcp-ns:
+	kubectl create namespace dask-gateway --cluster=gke_pangeo-181919_us-central1_earthcube
+
+dask-aws-ns:
+	kubectl create namespace dask-gateway --kubeconfig=aws-config
 
 # TODO: activate kubectl before running
 # TODO: run kubectl create namespace dask-gateway
 dask-gcp:
-	kubectl create namespace dask-gateway --cluster=gke_pangeo-181919_us-central1_earthcube
 	helm --kube-context=gke_pangeo-181919_us-central1_earthcube upgrade --install \
 		--namespace $(NAMESPACE) \
 		--version $(VERSION) \
 		--values secrets/config.yaml \
+		--values config.yaml \
 		$(GCP_RELEASE) \
 		dask-gateway/dask-gateway
 
 # TODO: activate kubectl before running
 # TODO: run kubectl create namespace dask-gateway
 dask-aws:
-	kubectl create namespace dask-gateway --kubeconfig=aws-config
 	helm --kubeconfig=aws-config upgrade --install \
 		--namespace $(NAMESPACE) \
 		--version $(VERSION) \
 		--values secrets/config.yaml \
+		--values config.yaml \
 		$(AWS_RELEASE) \
 		dask-gateway/dask-gateway
 
