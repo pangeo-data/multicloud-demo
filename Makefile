@@ -13,14 +13,14 @@ config-aws:
 	aws eks --region=us-east-1 update-kubeconfig --name=earthcube-cluster --kubeconfig=aws-config
 
 config-gcp:
-	aws eks --region=us-east-1 update-kubeconfig --name=earthcube-cluster --kubeconfig=aws-config
+	gcloud container clusters get-credentials earthcube --zone=us-central1
 
 
 # TODO: activate kubectl before running
 # TODO: run kubectl create namespace dask-gateway
 dask-gcp:
-	kubectl create namespace dask-gateway --kubeconfig=gcp-config
-	helm --kubeconfig=gcp-config upgrade --install \
+	kubectl create namespace dask-gateway --cluster=gke_pangeo-181919_us-central1_earthcube
+	helm --kube-context=gke_pangeo-181919_us-central1_earthcube upgrade --install \
 		--namespace $(NAMESPACE) \
 		--version $(VERSION) \
 		--values secrets/config.yaml \
@@ -40,3 +40,4 @@ dask-aws:
 
 print-ips:
 	kubectl --namespace=dask-gateway get service traefik-aws-dask-gateway --kubeconfig=aws-config
+	kubectl --namespace=dask-gateway get service traefik-gcp-dask-gateway --cluster=gke_pangeo-181919_us-central1_earthcube
