@@ -35,4 +35,5 @@ override.tf.json
 .ipython/
 .jupyter/
 .local/
-
+aws/
+gcp/

@@ -9,4 +9,5 @@ dependencies:
   - s3fs
   - intake
   - intake-xarray
+  - intake-esm
   - pip
