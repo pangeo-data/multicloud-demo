@@ -10,6 +10,8 @@ gateway:
         request: 12G
 
     worker:
+      memory:
+        request: 4G
       extraContainerConfig:
           env:
             - name: "GOOGLE_APPLICATION_CREDENTIALS"
