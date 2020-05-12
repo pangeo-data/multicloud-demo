@@ -29,3 +29,10 @@ override.tf.json
 # example: *tfplan*
 
 *-config
+.bash_history
+.cache/
+.config/
+.ipython/
+.jupyter/
+.local/
+
