@@ -1,5 +1,5 @@
 # Put your cluster where your data is
-region = "us-east-1"
+region = "us-west-2"
 
 # Put the profile you will use for awcli
 profile = "earthcube-bot"
