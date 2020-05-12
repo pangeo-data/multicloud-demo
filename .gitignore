@@ -34,3 +34,4 @@ override.tf.json
 .jupyter/
 .local/
 .cache/
+kubeconfig_earthcube-cluster

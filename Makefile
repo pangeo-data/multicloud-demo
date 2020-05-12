@@ -10,7 +10,7 @@ google:
 		terraform apply --var-file=gcp-cluster.tfvars --auto-approve
 
 config-aws:
-	aws eks --region=us-east-1 update-kubeconfig --name=earthcube-cluster --kubeconfig=aws-config
+	aws eks --region=us-west-2 update-kubeconfig --name=earthcube-cluster --kubeconfig=aws-config
 
 config-gcp:
 	gcloud container clusters get-credentials earthcube --zone=us-central1
