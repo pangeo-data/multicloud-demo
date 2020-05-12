@@ -2,7 +2,7 @@ channels:
   - conda-forge
 name: notebook
 dependencies:
-  - pangeo-notebook==2020.05.04
+  - pangeo-notebook==2020.05.10
   - xarray
   - xhistogram
   - gcsfs
