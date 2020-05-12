@@ -29,6 +29,7 @@ dask-gcp:
 		--version $(VERSION) \
 		--values secrets/config.yaml \
 		--values config.yaml \
+		--values config-gcp.yaml \
 		$(GCP_RELEASE) \
 		dask-gateway/dask-gateway
 
@@ -49,4 +50,8 @@ print-ips:
 
 
 lab:
-	docker run -it --rm --mount type=bind,src=$(PWD),target=/home/jovyan/ -p 8888:8888 tomaugspurger/pangeo-multicloud:2020.05.12.1 -- jupyter lab --ip=0.0.0.0
+	docker run -it --rm \
+		--mount type=bind,src=$(PWD),target=/home/jovyan/ \
+		--env GOOGLE_APPLICATION_CREDENTIALS="/home/jovyan/secrets/earthcube-sa.json" \
+		-p 8888:8888 tomaugspurger/pangeo-multicloud:2020.05.12.1 \
+		-- jupyter lab --ip=0.0.0.0 --no-browser

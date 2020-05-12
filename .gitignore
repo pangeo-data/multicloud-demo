@@ -35,3 +35,4 @@ override.tf.json
 .local/
 .cache/
 kubeconfig_earthcube-cluster
+service-account.json

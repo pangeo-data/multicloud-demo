@@ -82,7 +82,7 @@ module "gke" {
   node_pools = [
     {
       name         = "scheduler-pool"
-      machine_type = "n1-standard-2"
+      machine_type = "n1-standard-8"
       min_count    = 0
       max_count    = 2
       # service_account = var.compute_engine_service_account
@@ -92,7 +92,7 @@ module "gke" {
     },
     {
       name         = "worker-pool"
-      machine_type = "n1-standard-2"
+      machine_type = "n1-standard-8"
       min_count    = 0
       max_count    = 40
       # service_account   = var.compute_engine_service_account
@@ -100,7 +100,7 @@ module "gke" {
     },
     {
       name               = "gateway"
-      machine_type       = "n1-standard-2"
+      machine_type       = "n1-standard-8"
       auto_upgrade       = true
       initial_node_count = 1
       preemptible        = false
