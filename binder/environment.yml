@@ -3,11 +3,12 @@ channels:
 name: notebook
 dependencies:
   - pangeo-notebook==2020.05.10
+  - gcsfs
+  - intake
+  - intake-esm
+  - intake-xarray
+  - matplotlib
+  - s3fs
   - xarray
   - xhistogram
-  - gcsfs
-  - s3fs
-  - intake
-  - intake-xarray
-  - intake-esm
   - pip
