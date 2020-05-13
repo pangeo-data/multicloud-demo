@@ -7,7 +7,7 @@ multiple cloud regions.
 
 1. Get the secret key for this repo
 2. Get the Dask Gateway password
-3. Install git-crypt (`brew install git-crypt` on a Mac, ttps://github.com/AGWA/git-crypt/blob/master/INSTALL.md).
+3. Install git-crypt (`brew install git-crypt` on a Mac, https://github.com/AGWA/git-crypt/blob/master/INSTALL.md).
 4. Ensure you have Docker installed locally
 5. Download and decrypt
 
