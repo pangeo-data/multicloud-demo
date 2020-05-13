@@ -3,6 +3,34 @@
 Demonstration using Pangeo deployments to work with datasets provided in
 multiple cloud regions.
 
+## Usage
+
+1. Get the secret key for this repo
+2. Get the Dask Gateway password
+3. Install git-crypt (`brew install git-crypt` on a Mac, ttps://github.com/AGWA/git-crypt/blob/master/INSTALL.md).
+4. Ensure you have Docker installed locally
+5. Download and decrypt
+
+```
+git clone https://github.com/pangeo-data/multicloud-demo
+cd multicloud-demo
+git-crypt unlock /path/to/secret-key
+```
+
+6. Start Jupyterlab
+
+```
+make lab
+```
+
+Open your browser to `http://localhost:8888/` and you'll be at the notebook.
+
+
+
+```python
+password = getpass.getpass()  # Provide the password from step 2
+```
+
 ## Branches
 
 * master: Notebook, infrastructure

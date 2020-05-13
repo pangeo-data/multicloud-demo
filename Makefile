@@ -54,4 +54,4 @@ lab:
 		--mount type=bind,src=$(PWD),target=/home/jovyan/ \
 		--env GOOGLE_APPLICATION_CREDENTIALS="/home/jovyan/secrets/earthcube-sa.json" \
 		-p 8888:8888 tomaugspurger/pangeo-multicloud:2020.05.12.1 \
-		-- jupyter lab --ip=0.0.0.0 --no-browser
+		-- jupyter lab --ip=0.0.0.0 --no-browser --LabApp.token=''
