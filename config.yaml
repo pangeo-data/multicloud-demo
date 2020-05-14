@@ -4,7 +4,6 @@ gateway:
       name: tomaugspurger/pangeo-multicloud
       tag: "2020.05.12.2"
       pullPolicy: IfNotPresent
-    scheduler:
       extraPodConfig:
         tolerations:
           - key: "k8s.dask.org/dedicated"
@@ -16,6 +15,9 @@ gateway:
             value: "scheduler"
             effect: "NoSchedule"
     worker:
+      memory:
+        request: 4G
+
       extraPodConfig:
         tolerations:
           - key: "k8s.dask.org/dedicated"

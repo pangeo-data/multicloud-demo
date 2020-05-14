@@ -1,11 +1,8 @@
 gateway:
   backend:
     scheduler:
-      # Cores request/limit for the scheduler.
       cores:
         request: 6
-
-      # Memory request/limit for the scheduler.
       memory:
         request: 12G
 
