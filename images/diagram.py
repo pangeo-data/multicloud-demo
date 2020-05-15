@@ -2,18 +2,14 @@ from urllib.request import urlretrieve
 
 from diagrams import Diagram, Cluster, Edge
 from diagrams.custom import Custom
-from diagrams.aws.compute import EC2
-from diagrams.aws.database import RDS
-from diagrams.aws.network import ELB
 from diagrams.aws.storage import S3
-from diagrams.k8s.compute import Pod, RS
-from diagrams.k8s.controlplane import CM
+from diagrams.k8s.compute import RS
 from diagrams.onprem.client import Client
 
 from diagrams.gcp.storage import GCS
 
 terraform_url = "https://www.terraform.io/assets/images/og-image-8b3e4f7d.png"
-terraform_icon = "rabbitmq.png"
+terraform_icon = "terraform.png"
 urlretrieve(terraform_url, terraform_icon)
 
 dask_icon = "images/dask-icon.png"
